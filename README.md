@@ -20,6 +20,12 @@ To restart the project, execute:
 docker-compose start
 ```
 
+or to handle some problems to restart (Warning: Remove all info inside containers)
+
+```bash
+docker-compose up --force-recreate
+```
+
 After start or restart the services to see the logs inside docker, execute:
 
 ```bash
@@ -30,4 +36,24 @@ To remove the container and services related, execute:
 
 ```bash
 docker-compose down
+```
+
+### 2) Migrations TypeORM
+
+To create a new migration use:
+
+```bash
+yarn typeorm migration:create -n <migrationName>
+```
+
+To run a migration use:
+
+```bash
+yarn typeorm migration:run
+```
+
+To revert a migration use:
+
+```bash
+yarn typeorm migration:revert
 ```
