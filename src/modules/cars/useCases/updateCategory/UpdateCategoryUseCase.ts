@@ -18,9 +18,7 @@ class UpdateCategoryUseCase {
     const checkIfNameAlreadyExists = await this.categoriesRepository.findById(
       id
     );
-    if (checkIfNameAlreadyExists.name === name) {
-      throw new Error(`Category name ${name} already exists!`);
-    }
+
     await this.categoriesRepository.update({ id, name, description });
 
     return checkIfNameAlreadyExists;
