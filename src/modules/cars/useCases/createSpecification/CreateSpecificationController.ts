@@ -13,7 +13,9 @@ class CreateSpecificationController {
 
     await createSpecificationUseCase.execute({ name, description });
 
-    return res.status(201).send({ success: "Category successfully created" });
+    return res
+      .status(201)
+      .send({ success: "Specification successfully created" });
   }
 }
 
