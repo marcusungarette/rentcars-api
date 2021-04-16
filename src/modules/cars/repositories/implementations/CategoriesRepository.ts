@@ -4,6 +4,7 @@ import { Category } from "../../entities/Category";
 import {
   ICategoriesRepository,
   ICreateCategoryDTO,
+  IUpdateCategoryDTO,
 } from "../ICategoriesRepository";
 
 export class CategoriesRepository implements ICategoriesRepository {
@@ -19,7 +20,33 @@ export class CategoriesRepository implements ICategoriesRepository {
       description,
     });
 
-    await this.repository.save(category);
+    try {
+      await this.repository.save(category);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async update({
+    id,
+    description,
+    name,
+  }: IUpdateCategoryDTO): Promise<Category> {
+    const category = await this.repository.findOne({ id });
+
+    if (!category) {
+      throw new Error(`The category ${id} not found.`);
+    }
+
+    try {
+      category.description = description;
+      category.name = name;
+      await this.repository.save(category);
+    } catch (error) {
+      throw new Error(error);
+    }
+
+    return category;
   }
 
   async getAll(): Promise<Category[]> {
@@ -29,6 +56,19 @@ export class CategoriesRepository implements ICategoriesRepository {
 
   async findByName(name: string): Promise<Category> {
     const category = await this.repository.findOne({ name });
+
+    if (!category) {
+      throw new Error(`The category ${name} not found.`);
+    }
+    return category;
+  }
+
+  async findById(id: string): Promise<Category> {
+    const category = await this.repository.findOne({ id });
+
+    if (!category) {
+      throw new Error(`The category ${id} not found.`);
+    }
     return category;
   }
 }
