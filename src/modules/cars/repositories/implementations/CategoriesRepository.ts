@@ -1,5 +1,6 @@
 import { getRepository, Repository } from "typeorm";
 
+import { AppError } from "../../../../errors/AppError";
 import { Category } from "../../entities/Category";
 import {
   ICategoriesRepository,
@@ -23,7 +24,7 @@ export class CategoriesRepository implements ICategoriesRepository {
     try {
       await this.repository.save(category);
     } catch (error) {
-      throw new Error(error);
+      throw new AppError(error);
     }
   }
 
@@ -35,7 +36,7 @@ export class CategoriesRepository implements ICategoriesRepository {
     const category = await this.repository.findOne({ id });
 
     if (!category) {
-      throw new Error(`The category ${id} not found.`);
+      throw new AppError(`The category ${id} not found.`);
     }
 
     try {
@@ -43,7 +44,7 @@ export class CategoriesRepository implements ICategoriesRepository {
       category.name = name;
       await this.repository.save(category);
     } catch (error) {
-      throw new Error(error);
+      throw new AppError(error);
     }
 
     return category;
@@ -64,7 +65,7 @@ export class CategoriesRepository implements ICategoriesRepository {
     const category = await this.repository.findOne({ id });
 
     if (!category) {
-      throw new Error(`The category ${id} not found.`);
+      throw new AppError(`The category ${id} not found.`);
     }
     return category;
   }
