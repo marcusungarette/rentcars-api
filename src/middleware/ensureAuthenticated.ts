@@ -35,6 +35,12 @@ export async function ensureAuthenticated(
       throw new AppError("User does not exists!", 401);
     }
 
+    // Added user: inside src/@types/express/index.d.ts to overwrite request this allow
+    // updateUserAvatarController get user_id
+    request.user = {
+      id: user_id,
+    };
+
     next();
   } catch (error) {
     throw new AppError("Invalid token!", 401);
