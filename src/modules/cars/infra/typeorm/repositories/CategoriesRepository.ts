@@ -1,12 +1,12 @@
 import { getRepository, Repository } from "typeorm";
 
-import { AppError } from "../../../../errors/AppError";
-import { Category } from "../../entities/Category";
+import { AppError } from "../../../../../shared/errors/AppError";
 import {
   ICategoriesRepository,
   ICreateCategoryDTO,
   IUpdateCategoryDTO,
-} from "../ICategoriesRepository";
+} from "../../../repositories/ICategoriesRepository";
+import { Category } from "../entities/Category";
 
 export class CategoriesRepository implements ICategoriesRepository {
   private repository: Repository<Category>;
